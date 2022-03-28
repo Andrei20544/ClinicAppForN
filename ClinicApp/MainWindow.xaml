@@ -1,0 +1,118 @@
+﻿<Window x:Class="ClinicApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClinicApp"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="600" 
+        Width="600" 
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown">
+    <Window.Resources>
+
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Default}">
+            
+            
+            
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+
+            <Setter Property="Foreground" Value="#FF293F51"/>
+            <Setter Property="FontSize" Value="28"/>
+
+        </Style>
+        
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!--header-->
+        <Grid Grid.Row="0"
+              Background="#FF222127">
+
+            <TextBlock Text="Поликлиника"
+                       HorizontalAlignment="Left"
+                       FontSize="35"
+                       Foreground="#FF4E9F7C"
+                       Style="{StaticResource Default}"                     
+                       Margin="10 0 0 0"/>
+
+            <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+
+                <Button Style="{StaticResource MinMaxBtn}" Click="Button_Click_1">
+                    <Image Source="Resource/windowminimize.png"/>
+                </Button>
+                <Button Style="{StaticResource ExitBtn}"
+                        IsCancel="True" Click="Button_Click">
+                    <Image Source="Resource/windowclose.png"/>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+        <!--header-->
+
+        <!--main-->
+        <Grid Grid.Row="1"
+              Background="#FF141319">
+
+            <StackPanel Margin="30 10 10 10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+               
+
+                <Button Style="{StaticResource MainBtn}" Click="Client_Click">
+                    <TextBlock Text="Клиенты"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Doctor_Click">
+                    <TextBlock Text="Доктора"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Med_Click">
+                    <TextBlock Text="Учет медикаментов"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Pill_Click">
+                    <TextBlock Text="Лекарства"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Register_Click">
+                    <TextBlock Text="Записи"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Schedule_Click">
+                    <TextBlock Text="Расписание"
+                               Style="{StaticResource Default}"/>
+                </Button>
+                <Button Style="{StaticResource MainBtn}" Click="Service_Click">
+                    <TextBlock Text="Услуги"
+                               Style="{StaticResource Default}"/>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+        <!--main-->
+
+        <!--footer-->
+        <Grid Grid.Row="2"
+              Background="#FF141319">
+
+
+        </Grid>
+        <!--footer-->
+
+    </Grid>
+</Window>

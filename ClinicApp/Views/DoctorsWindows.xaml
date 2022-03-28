@@ -1,0 +1,362 @@
+﻿<Window x:Class="ClinicApp.Views.DoctorsWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClinicApp.Views"
+        mc:Ignorable="d"
+        Title="DoctorsWindows" 
+        Height="600" 
+        Width="1280"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+    <Window.Resources>
+
+        <Style TargetType="TextBox">
+
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#FF00111F"/>
+            <Setter Property="Foreground" Value="#FF878787"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="BorderThickness" Value="0 0 0 2"/>
+            <Setter Property="BorderBrush" Value="#FF4C4A57"/>
+
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Text">
+
+            <Setter Property="Width" Value="165"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockDataGrid">
+
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="BTNDown" BasedOn="{StaticResource MainBtn}">
+
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+        </Style>
+
+        <!--<Style TargetType="{x:Type DataGridRow}" x:Key="DataGridStyle">
+
+            <Setter Property="Foreground" Value="#FFB3B3B3"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template" Value="{DynamicResource DataGridRowControlTemplate1}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FF262626"/>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#FF1B1A20"/>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FF333333"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>-->
+
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+
+            <Setter Property="Background" Value="#FF141319"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+
+        </Style>
+
+        <Style TargetType="{x:Type Border}" x:Key="BorderDataGrid">
+
+            <Setter Property="BorderThickness" Value="0 0 0 2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="CornerRadius" Value="5"/>
+
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!--header-->
+        <Grid Grid.Row="0"
+              Background="#FF222127">
+
+            <TextBlock Text="Доктора"
+                       Margin="10 0 0 0"
+                       FontSize="25"
+                       Foreground="#FF4E9F7C"
+                       Style="{StaticResource Default}"/>
+
+            <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+
+                <Button Style="{StaticResource MinMaxBtn}" Click="Button_Click_1">
+                    <Image Source="/Resource/windowminimize.png"/>
+                </Button>
+                <Button Style="{StaticResource ExitBtn}"
+                        IsCancel="True" Click="Button_Click">
+                    <Image Source="/Resource/windowclose.png"/>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+        <!--header-->
+
+        <!--main-->
+        <Grid Grid.Row="1"
+              Background="#FF141319">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="750"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Список докторов"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="AliceBlue"/>
+
+                <Grid Grid.Row="1"
+                      Margin="5">
+
+                    <DataGrid BorderThickness="2"
+                              BorderBrush="Transparent"
+                              Name="GridDoctor"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              FontSize="17"
+                              Background="#FF222127"
+                              Foreground="#FF6C6C6C" 
+                              SelectionChanged="GridDoctor_SelectionChanged"
+                              RowStyle="{StaticResource DataGridStyle}"
+                              HorizontalAlignment="Center"
+                              RowHeaderWidth="0">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn
+                                        Binding="{Binding Path=name}"
+                                        Width="150">
+                                <DataGridTextColumn.Header>
+                                    <Border Style="{StaticResource BorderDataGrid}">
+                                        <TextBlock Text="Имя"
+                                               Style="{StaticResource TextBlockDataGrid}"/>
+                                    </Border>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn
+                                        Binding="{Binding Path=surname}"
+                                            Width="150">
+                                <DataGridTextColumn.Header>
+                                    <Border Style="{StaticResource BorderDataGrid}">
+                                        <TextBlock Text="Фамилия"
+                                               Style="{StaticResource TextBlockDataGrid}"/>
+                                    </Border>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn
+                                        Binding="{Binding Path=middle_name}"
+                                        Width="150">
+                                <DataGridTextColumn.Header>
+                                    <Border Style="{StaticResource BorderDataGrid}">
+                                        <TextBlock Text="Отчество"
+                                                   Style="{StaticResource TextBlockDataGrid}"/>
+                                    </Border>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn
+                                        Binding="{Binding Path=role}"
+                                                Width="180">
+                                <DataGridTextColumn.Header>
+                                    <Border Style="{StaticResource BorderDataGrid}"
+                                            Width="180">
+                                        <TextBlock Text="Роль"
+                                                   Style="{StaticResource TextBlockDataGrid}"/>
+                                    </Border>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn
+                                        Binding="{Binding Path=gender}"
+                                                Width="120">
+                                <DataGridTextColumn.Header>
+                                    <Border Style="{StaticResource BorderDataGrid}"
+                                            Width="120">
+                                        <TextBlock Text="Гендер"
+                                                   Style="{StaticResource TextBlockDataGrid}"/>
+                                    </Border>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <TextBlock Text="Корректировка списка"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="AliceBlue"/>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Hidden"
+                              Background="#FF222127"
+                              Margin="5"
+                              Grid.Row="1">
+
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Имя *"
+                                       Style="{StaticResource Text}"/>
+                            <TextBox x:Name="nameText"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Фамилия *"
+                                       Style="{StaticResource Text}"/>
+                            <TextBox x:Name="surnameText"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Отчество *"
+                                       Style="{StaticResource Text}"/>
+                            <TextBox x:Name="middleNameText"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Роль"
+                                       Style="{StaticResource Text}"/>
+                            <TextBox x:Name="roleText"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <TextBlock Text="Гендер"
+                                       Style="{StaticResource Text}"/>
+                            <TextBox x:Name="genderText"/>
+                        </StackPanel>
+                        
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 20 0 0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom">
+
+                            <Button Style="{StaticResource BTNDown}" Click="AddClick">
+                                <TextBlock Text="Добавить"
+                                           Style="{StaticResource Default}"/>
+                            </Button>
+                            <Button Style="{StaticResource BTNDown}" Click="ChangeClick">
+                                <TextBlock Text="Изменить"
+                                           Style="{StaticResource Default}"/>
+                            </Button>
+                            <Button Style="{StaticResource BTNDown}" Click="DeleteClick">
+                                <TextBlock Text="Удалить"
+                                           Style="{StaticResource Default}"/>
+                            </Button>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Grid>
+        <!--main-->
+
+        <!--footer-->
+        <Grid Grid.Row="2"
+              Background="#FF141319">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Grid.ColumnSpan="2">
+
+                <TextBlock Text="Поиск: "
+                           Foreground="#FF4E9F7C"
+                           Style="{StaticResource Default}"/>
+                <TextBox x:Name="search"
+                         Width="300"
+                         Background="#FF232323"
+                         BorderBrush="#FF3C3C3C" 
+                         TextChanged="search_TextChanged"/>
+
+            </StackPanel>
+
+        </Grid>
+        <!--footer-->
+
+    </Grid>
+</Window>
